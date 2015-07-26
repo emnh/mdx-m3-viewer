@@ -221,6 +221,10 @@ window["ModelViewer"] = function (canvas, worldPaths) {
         
         updateCamera();
     }
+    
+    function getContext() {
+      return context;
+    }
 
     function renderGround(mode) {
         if (gl.shaderStatus("world")) {
@@ -1037,6 +1041,10 @@ window["ModelViewer"] = function (canvas, worldPaths) {
         return context.camera;
     }
     
+    function stepUpdate() {
+      update();
+    };
+    
     var API = {
         // Resource API
         load: load,
@@ -1084,13 +1092,17 @@ window["ModelViewer"] = function (canvas, worldPaths) {
         removeEventListener: removeEventListener,
         dispatchEvent: dispatchEvent,
         // Experiemental
-        renderTexture: renderTexture
+        renderTexture: renderTexture,
+        stepUpdate: stepUpdate,
+        updateCamera: updateCamera,
+        loadInstance: loadInstance,
+        getContext: getContext,
     };
 
     var skipFrames = 1;
 
     // The main loop of the viewer
-    (function step() {
+    /*(function step() {
         skipFrames -= 1;
 
         if (skipFrames === 0) {
@@ -1102,7 +1114,7 @@ window["ModelViewer"] = function (canvas, worldPaths) {
         render();
 
         requestAnimationFrame(step);
-    }());
+    }());*/
         
     return mixin(API, viewerObject);
 };
